@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}Date personale{% endblock %}
+{% block content %}
+<div class="row">
+  <div class="col-md-4">
+    {% if object.user.is_student %}
+      {% if object.profile_pic %}
+        <img src="{{ object.profile_pic.url }}" width="200" alt="">
+      {% endif %}
+      <h2>{{object.nume}} {{object.prenume}}</h2>
+      <a class="btn btn-primary btn-xs" href="{{ object.facebook_site }}" role="button">Facebook</a>
+      <a class="btn btn-primary btn-xs" href="{{ object.linkedin_site }}" role="button">LinkedIn</a>
+      <h4>Anul de studii: {{object.an}}</h4>
+      <h4>Media generala: {{object.media_generala}}</h4>
+      <h4>Puncte credit acumulate: {{object.nr_credite}}</h4>
+      <h4>Grupa: {{object.grupa}}</h4>
+    {% else %}
+      {% if object.profile_pic %}
+        <img src="{{ object.profile_pic.url }}" width="200" alt="">
+      {% endif %}
+      <h2>{{object.nume}} {{object.prenume}}</h2>
+      <h4>{{object.grad}}</h4>
+      <a class="btn btn-primary btn-xs" href="{{ object.facebook_site}}" role="button">Facebook</a>
+      <a class="btn btn-primary btn-xs" href="{{ object.linkedin_site}}" role="button">LinkedIn</a>
+      <a class="btn btn-primary btn-xs" href="{{ object.research_gate_profile}}" role="button">ResearchGate</a>
+
+    {% endif %}
+{% endblock  %}
+</div>
+
+</div>
