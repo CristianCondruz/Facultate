@@ -72,6 +72,7 @@ def profesor_view(request):
             user.profesor.facebook_site = profesor_form.cleaned_data.get('facebook_site')
             user.profesor.linkedin_site = profesor_form.cleaned_data.get('linkedin_site')
             user.profesor.research_gate_profile = profesor_form.cleaned_data.get('research_gate_profile')
+            user.profesor.materia_profesor = profesor_form.cleaned_data.get('materia')
             if 'profile_pic' in request.FILES:
                 user.profesor.profile_pic = request.FILES['profile_pic']
             user.profesor.save()

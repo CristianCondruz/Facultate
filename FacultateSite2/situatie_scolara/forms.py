@@ -6,4 +6,4 @@ from django.forms import ModelForm
 class AdaugareNoteForm(ModelForm):
     class Meta:
         model = SituatieScolara
-        fields = ('nota', 'materia', 'studentul')
+        fields = ('nota', 'materia')
