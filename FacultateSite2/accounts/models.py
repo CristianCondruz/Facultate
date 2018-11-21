@@ -41,9 +41,13 @@ class Profesor(models.Model):
     linkedin_site = models.URLField(blank=True)
     research_gate_profile = models.URLField(blank=True)
     profile_pic = models.ImageField(upload_to = 'profile_pics', blank=True)
-    materia = models.ForeignKey(Materii, on_delete=models.CASCADE, null=True, related_name='materia_profesor')
+    materia = models.ManyToManyField(Materii,through="ProfesorMateria",  null=True, related_name='materia_profesor')
     def __str__(self):
         return self.nume
+
+class ProfesorMateria(models.Model):
+    profesor = models.ForeignKey(Profesor,on_delete='cascade')
+    materia = models.ForeignKey(Materii,on_delete='cascade')
 
 @receiver(post_save, sender=CustomUser)
 def user_is_created(sender, instance, created, **kwargs):

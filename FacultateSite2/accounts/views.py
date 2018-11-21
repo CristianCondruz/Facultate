@@ -38,6 +38,7 @@ def student_view(request):
             user.student.cnp = student_form.cleaned_data.get('cnp')
             user.student.facebook_site = student_form.cleaned_data.get('facebook_site')
             user.student.linkedin_site = student_form.cleaned_data.get('linkedin_site')
+            user.student.grupa = student_form.cleaned_data.get('grupa')
             if 'profile_pic' in request.FILES:
                 user.student.profile_pic = request.FILES['profile_pic']
             user.student.save()
@@ -72,6 +73,7 @@ def profesor_view(request):
             user.profesor.facebook_site = profesor_form.cleaned_data.get('facebook_site')
             user.profesor.linkedin_site = profesor_form.cleaned_data.get('linkedin_site')
             user.profesor.research_gate_profile = profesor_form.cleaned_data.get('research_gate_profile')
+            print(profesor_form.cleaned_data.get('materia'))
             user.profesor.materia_profesor = profesor_form.cleaned_data.get('materia')
             if 'profile_pic' in request.FILES:
                 user.profesor.profile_pic = request.FILES['profile_pic']
