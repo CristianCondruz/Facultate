@@ -26,4 +26,4 @@ class StudentForm(ModelForm):
 class ProfesorForm(ModelForm):
     class Meta:
         model = Profesor
-        fields = ('nume','prenume','grad', 'profile_pic','facebook_site', 'linkedin_site', 'research_gate_profile', 'materia')
+        fields = ('nume','prenume','grad', 'profile_pic','facebook_site', 'linkedin_site', 'research_gate_profile')

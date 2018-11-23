@@ -6,6 +6,6 @@ from . import views
 app_name = 'situatie_scolara'
 
 urlpatterns = [
-    path('adaugare_note/',views.AdaugareNoteView.as_view(),name='adaugare_note')
-
+    path('adaugare_note/',views.AdaugareNoteView.as_view(),name='adaugare_note'),
+    path('selectie_materii/',views.selectie_materie_form_view,name='selectie_materii')
 ]
