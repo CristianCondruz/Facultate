@@ -4,6 +4,7 @@ from .forms import AdaugareNoteForm, SelectieMateriiForm, CreareGrupeForm, Adaug
 from django.http import HttpResponseRedirect
 from accounts.models import ProfesorMateria
 from .models import MateriiGrupa, Grupa
+from accounts.models import Profesor
 
 
 # Create your views here.
@@ -41,6 +42,8 @@ def CreareGrupeView(request):
 		})
 
 def adaugare_note(request):
+    current_profesor = Profesor.objects.get(pk = request.user.profesor.id)
+    print(current_profesor.objects.filter(profesorMateria))
     if request.method == 'POST':
         adaugare_note_form = AdaugareNoteForm(request.POST)
         materii_grupe_form = MateriiGrupaForm(request.POST)
