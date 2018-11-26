@@ -37,9 +37,9 @@ class Profesor(models.Model):
     nume = models.CharField(blank=True, max_length=100)
     prenume = models.CharField(blank=True, max_length=100)
     grad = models.CharField(blank=True, max_length=100)
-    facebook_site = models.URLField(blank=True)
-    linkedin_site = models.URLField(blank=True)
-    research_gate_profile = models.URLField(blank=True)
+    facebook_site = models.URLField(blank=True,null=True)
+    linkedin_site = models.URLField(blank=True,null=True)
+    research_gate_profile = models.URLField(blank=True,null=True)
     profile_pic = models.ImageField(upload_to = 'profile_pics', blank=True)
     materia = models.ManyToManyField(Materii, through="ProfesorMateria",  null=True)
     def __str__(self):
@@ -48,6 +48,9 @@ class Profesor(models.Model):
 class ProfesorMateria(models.Model):
     profesor = models.ForeignKey(Profesor,on_delete='cascade', related_name='materia_profesor')
     materia = models.ForeignKey(Materii,on_delete='cascade')
+
+    def __str__(self):
+        return self.profesor, self.materia
 
 @receiver(post_save, sender=CustomUser)
 def user_is_created(sender, instance, created, **kwargs):

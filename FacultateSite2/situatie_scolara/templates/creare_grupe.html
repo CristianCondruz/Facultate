@@ -1,11 +1,11 @@
 {% extends "base.html" %}
 {% load static %}
-{% block title %}Selectie Materii{% endblock %}
+{% block title %}Creare Grupe{% endblock %}
 {% block content %}
 <form method="POST">
   {% csrf_token %}
 
-    {{ selectie_materii_form.as_p }}
+    {{ creare_grupe_form.as_p }}
 
   <button type="submit" class="save btn btn-default">Save</button>
 </form>

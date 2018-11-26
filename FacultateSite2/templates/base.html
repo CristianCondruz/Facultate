@@ -27,11 +27,15 @@
               <li> <a href="{% url 'situatie_scolara:adaugare_note' %}">Adaugare Note</a> </li>
               <li> <a href="{% url 'accounts:date_personale_profesor' pk=request.user.profesor.pk name=request.user.username %}">Date personale</a> </li>
             {% endif %}
+            {% if user.is_superuser %}
+            <li> <a href="{% url 'situatie-scolara:creare_grupe' %}">Creare grupe</a> </li>
+            {% endif %}
             <li> <a href="{% url 'accounts:logout' %}">Log Out</a> </li>
           {% else %}
             <li> <a href="{% url 'accounts:login' %}">Autentificare</a> </li>
             <li> <a href="{% url 'accounts:signup_student' %}">Inregistrare student</a> </li>
             <li> <a href="{% url 'accounts:signup_professor' %}">Inregistrare profesor</a> </li>
+
           {% endif %}
 
         </ul>

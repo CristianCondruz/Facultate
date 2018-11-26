@@ -5,7 +5,7 @@ from django.urls import reverse_lazy
 from django.views import generic
 
 from .forms import CustomUserCreationForm, StudentForm, ProfesorForm
-from .models import CustomUser, Student, Profesor
+from .models import CustomUser, Student, Profesor, ProfesorMateria
 from django.urls import reverse
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseRedirect,HttpResponse
@@ -73,8 +73,12 @@ def profesor_view(request):
             user.profesor.facebook_site = profesor_form.cleaned_data.get('facebook_site')
             user.profesor.linkedin_site = profesor_form.cleaned_data.get('linkedin_site')
             user.profesor.research_gate_profile = profesor_form.cleaned_data.get('research_gate_profile')
+            print(profesor_form.cleaned_data.get('research_gate_profile'))
             if 'profile_pic' in request.FILES:
                 user.profesor.profile_pic = request.FILES['profile_pic']
+            for materie in profesor_form.cleaned_data.get('materia'):
+                p1 = ProfesorMateria(profesor=user.profesor, materia = materie)
+                p1.save()
             user.profesor.save()
             registered = True
     else:
