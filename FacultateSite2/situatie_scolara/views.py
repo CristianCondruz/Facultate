@@ -1,17 +1,12 @@
 from django.shortcuts import render
 from django.views.generic.edit import FormView
-from .forms import AdaugareNoteForm, SelectieMateriiForm, CreareGrupeForm
+from .forms import AdaugareNoteForm, SelectieMateriiForm, CreareGrupeForm, AdaugareNoteForm, MateriiGrupaForm, StudentInfoForm
 from django.http import HttpResponseRedirect
 from accounts.models import ProfesorMateria
-from .models import MateriiGrupa
+from .models import MateriiGrupa, Grupa
 
 
 # Create your views here.
-
-class AdaugareNoteView(FormView):
-    template_name = 'adaugare_note.html'
-    form_class = AdaugareNoteForm
-    success_url = 'adaugare_note.html'
 
 def SelectieMateriiView(request):
 
@@ -30,12 +25,12 @@ def SelectieMateriiView(request):
 		})
 
 def CreareGrupeView(request):
-    if request.method = 'POST':
+    if request.method == 'POST':
         creare_grupe_form = CreareGrupeForm(request.POST)
         if creare_grupe_form.is_valid():
-            g1 = Grupa(numarul=creare_grupe_form.get('numarul'), seria=creare_grupe_form.get('seria'))
+            g1 = Grupa(numarul=creare_grupe_form.cleaned_data.get('numarul'), seria=creare_grupe_form.cleaned_data.get('seria'))
             g1.save()
-            for materia in creare_grupe_form.get('materia'):
+            for materia in creare_grupe_form.cleaned_data.get('materia'):
                 mg1 = MateriiGrupa(materie=materia, grupa=g1)
                 mg1.save()
 
@@ -43,4 +38,19 @@ def CreareGrupeView(request):
         creare_grupe_form = CreareGrupeForm()
     return render(request, 'creare_grupe.html',{
 			'creare_grupe_form': creare_grupe_form,
+		})
+
+def adaugare_note(request):
+    if request.method == 'POST':
+        adaugare_note_form = AdaugareNoteForm(request.POST)
+        materii_grupe_form = MateriiGrupaForm(request.POST)
+        student_form = StudentInfoForm(request.POST)
+    else:
+        adaugare_note_form = AdaugareNoteForm()
+        materii_grupe_form = MateriiGrupaForm()
+        student_form = StudentInfoForm()
+    return render(request, 'adaugare_note.html',{
+			'adaugare_note_form': adaugare_note_form,
+            'materii_grupe_form': materii_grupe_form,
+            'student_form': student_form
 		})

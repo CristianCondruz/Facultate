@@ -28,7 +28,7 @@
               <li> <a href="{% url 'accounts:date_personale_profesor' pk=request.user.profesor.pk name=request.user.username %}">Date personale</a> </li>
             {% endif %}
             {% if user.is_superuser %}
-            <li> <a href="{% url 'situatie-scolara:creare_grupe' %}">Creare grupe</a> </li>
+            <li> <a href="{% url 'situatie_scolara:creare_grupe' %}">Creare grupe</a> </li>
             {% endif %}
             <li> <a href="{% url 'accounts:logout' %}">Log Out</a> </li>
           {% else %}

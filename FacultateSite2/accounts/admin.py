@@ -5,7 +5,7 @@ from django.contrib.auth.admin import UserAdmin
 # Register your models here.
 from .forms import CustomUserCreationForm, CustomUserChangeForm
 from .models import CustomUser, Student, Profesor, ProfesorMateria
-from situatie_scolara.models import Materii, SituatieScolara, Grupa
+from situatie_scolara.models import Materii, SituatieScolara, Grupa, MateriiGrupa
 
 class CustomUserAdmin(UserAdmin):
     add_form = CustomUserCreationForm
@@ -19,3 +19,4 @@ admin.site.register(Profesor)
 admin.site.register(Materii)
 admin.site.register(Grupa)
 admin.site.register(ProfesorMateria)
+admin.site.register(MateriiGrupa)

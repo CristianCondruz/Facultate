@@ -6,7 +6,7 @@ from . import views
 app_name = 'situatie_scolara'
 
 urlpatterns = [
-    path('adaugare_note/',views.AdaugareNoteView.as_view(),name='adaugare_note'),
+    path('adaugare_note/',views.adaugare_note,name='adaugare_note'),
     path('selectie_materii/',views.SelectieMateriiView,name='selectie_materii'),
     path('creare_grupe/',views.CreareGrupeView,name='creare_grupe')
 ]
