@@ -22,7 +22,7 @@
             {% if request.user.is_student %}
               <li> <h1>Student</h1> </li>
               <li> <a href="{% url 'accounts:date_personale_student' pk=request.user.student.pk name=request.user.username %}">Date personale</a> </li>
-              <li> <a href="#">Situatie Scolara</a> </li>
+              <li> <a href="{% url 'situatie_scolara:vizualizare_situatie_scolara' %}">Situatie Scolara</a> </li>
             {% else %}
               <li> <a href="{% url 'situatie_scolara:adaugare_note' %}">Adaugare Note</a> </li>
               <li> <a href="{% url 'accounts:date_personale_profesor' pk=request.user.profesor.pk name=request.user.username %}">Date personale</a> </li>

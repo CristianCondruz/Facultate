@@ -97,15 +97,10 @@ def user_login(request):
     if request.method == 'POST':
         username = request.POST.get('username')
         password = request.POST.get('password')
-        print(username)
-        print(password)
         UserModel = get_user_model()
         user = UserModel._default_manager.get_by_natural_key(username)
         mb = ModelBackend()
-        print(mb.user_can_authenticate(user = user))
-        print(user.check_password(password))
         user = authenticate(username=username,password=password,request=request)
-        print(user.is_student)
         if user:
             if user.is_active:
                 login(request,user)

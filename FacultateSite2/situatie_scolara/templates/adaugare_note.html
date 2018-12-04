@@ -3,7 +3,13 @@
 {% block title %}Adaugare Note{% endblock %}
 {% block content %}
 
-{{ adaugare_note_form.as_p }}
-{{ materii_grupe_form.as_p }}
-{{ student_form.as_p }}
+
+<form method="POST">
+  {% csrf_token %}
+
+  {{ adaugare_note_form.as_p }}
+  {{ student_form.as_table }}
+
+  <button type="submit" class="save btn btn-default">Save</button>
+</form>
 {% endblock  %}

@@ -27,7 +27,7 @@ class Student(models.Model):
     linkedin_site = models.URLField(blank=True)
     profile_pic = models.ImageField(upload_to = 'profile_pics', blank=True)
     grupa = models.ForeignKey(Grupa, on_delete=models.CASCADE, null=True, related_name='grupa_student' )
-
+    situatie_scolara = models.ForeignKey(SituatieScolara, on_delete=models.CASCADE, null=True)
 
     def __str__(self):
         return self.nume
@@ -41,16 +41,16 @@ class Profesor(models.Model):
     linkedin_site = models.URLField(blank=True,null=True)
     research_gate_profile = models.URLField(blank=True,null=True)
     profile_pic = models.ImageField(upload_to = 'profile_pics', blank=True)
-    materia = models.ManyToManyField(Materii, through="ProfesorMateria",  null=True)
+    materia = models.ManyToManyField(Materii, through="ProfesorMateria", related_name="materiiP" )
     def __str__(self):
         return self.nume
 
 class ProfesorMateria(models.Model):
-    profesor = models.ForeignKey(Profesor,on_delete='cascade', related_name='materia_profesor')
+    profesor = models.ForeignKey(Profesor,on_delete='cascade')
     materia = models.ForeignKey(Materii,on_delete='cascade')
 
     def __str__(self):
-        return self.profesor, self.materia
+        return "%s %s" % (self.profesor, self.materia)
 
 @receiver(post_save, sender=CustomUser)
 def user_is_created(sender, instance, created, **kwargs):

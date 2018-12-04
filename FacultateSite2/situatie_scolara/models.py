@@ -1,4 +1,5 @@
 from django.db import models
+
 # Create your models here.
 
 class Materii(models.Model):
@@ -12,17 +13,19 @@ class Materii(models.Model):
 class Grupa(models.Model):
     numarul = models.IntegerField(blank=True, null=True)
     seria = models.CharField(blank=True, null=True, max_length=1)
-    materia = models.ManyToManyField(Materii, through='MateriiGrupa')
+    materia = models.ManyToManyField(Materii, through='MateriiGrupa', related_name='materii')
     def __str__(self):
         return str(self.numarul)
 
 class MateriiGrupa(models.Model):
-    materie = models.ForeignKey(Materii, related_name='materie',on_delete='cascade')
-    grupa = models.ForeignKey(Grupa, related_name='grupa',on_delete='cascade')
+    materie = models.ForeignKey(Materii,on_delete='cascade')
+    grupa = models.ForeignKey(Grupa,on_delete='cascade')
     def __str__(self):
-        return self.materie, self.grupa
+        return "%s %s" % (self.materie, self.grupa)
 
 class SituatieScolara(models.Model):
     nota = models.IntegerField(blank=True, null=True)
     materia = models.ForeignKey(Materii, on_delete=models.CASCADE)
     admis = models.BooleanField(default=False)
+    def __str__(self):
+        return "%s %s %s" % (self.nota, self.materia, self.admis)

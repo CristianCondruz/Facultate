@@ -2,8 +2,8 @@ from django.shortcuts import render
 from django.views.generic.edit import FormView
 from .forms import AdaugareNoteForm, SelectieMateriiForm, CreareGrupeForm, AdaugareNoteForm, MateriiGrupaForm, StudentInfoForm
 from django.http import HttpResponseRedirect
-from accounts.models import ProfesorMateria
-from .models import MateriiGrupa, Grupa
+from accounts.models import ProfesorMateria, Student
+from .models import MateriiGrupa, Grupa, SituatieScolara
 from accounts.models import Profesor
 
 
@@ -43,11 +43,25 @@ def CreareGrupeView(request):
 
 def adaugare_note(request):
     current_profesor = Profesor.objects.get(pk = request.user.profesor.id)
-    print(current_profesor.objects.filter(profesorMateria))
+    e = ProfesorMateria.objects.all()
+    #print(current_profesor.materia_profesor.all().order_by('materia').all()[0].all())
     if request.method == 'POST':
         adaugare_note_form = AdaugareNoteForm(request.POST)
         materii_grupe_form = MateriiGrupaForm(request.POST)
         student_form = StudentInfoForm(request.POST)
+        if adaugare_note_form.is_valid() and student_form.is_valid():
+            if adaugare_note_form.cleaned_data.get('nota') > 5:
+                ss = SituatieScolara(nota=adaugare_note_form.cleaned_data.get('nota'),
+                        materia=adaugare_note_form.cleaned_data.get('materia'),admis=True)
+            else:
+                ss = SituatieScolara(nota=adaugare_note_form.cleaned_data.get('nota'),
+                        materia=adaugare_note_form.cleaned_data.get('materia'),admis=False)
+            ss.save()
+            print(ss)
+            student_notat = Student.objects.get(nume=student_form.cleaned_data.get('nume'),
+                prenume=student_form.cleaned_data.get('prenume'))
+            student_notat.situatie_scolara = ss
+            student_notat.save()
     else:
         adaugare_note_form = AdaugareNoteForm()
         materii_grupe_form = MateriiGrupaForm()
@@ -57,3 +71,9 @@ def adaugare_note(request):
             'materii_grupe_form': materii_grupe_form,
             'student_form': student_form
 		})
+def vizualizare_situatie_scolara(request):
+    current_student = Student.objects.get(pk = request.user.student.id)
+    situatie_scolara = current_student.situatie_scolara
+    return render(request, 'vizualizare_situatie_scolara.html',{
+    'situatie_scolara' : situatie_scolara
+    })
