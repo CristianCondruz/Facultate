@@ -2,5 +2,35 @@
 {% load static %}
 {% block title %}Adaugare Note{% endblock %}
 {% block content %}
-  {{situatie_scolara}}
+<div class="container">
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Materia</th>
+        <th>Nota obtinuta</th>
+        <th>Data notarii</th>
+        <th>Admis</th>
+      </tr>
+    </thead>
+    <tbody>
+        {% for note in nota %}
+        {% for materie in materia %}
+        {% for admisi in admis %}
+        {% for data in data_notarii %}
+          {% if admisi == True %}
+            <tr class="success">
+          {% else %}
+            <tr class="danger">
+          {% endif %}
+                <td>{{materie}}</td>
+                <td>{{note}}</td>
+                <td>{{data}}</td>
+                <td>{{admisi}}</td>
+        {% endfor %}
+        {% endfor %}
+        {% endfor %}
+        {% endfor %}
+    </tbody>
+  </table>
+</div>
 {% endblock  %}

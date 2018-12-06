@@ -27,5 +27,6 @@ class SituatieScolara(models.Model):
     nota = models.IntegerField(blank=True, null=True)
     materia = models.ForeignKey(Materii, on_delete=models.CASCADE)
     admis = models.BooleanField(default=False)
+    data_notarii = models.DateField(auto_now_add=True)
     def __str__(self):
-        return "%s %s %s" % (self.nota, self.materia, self.admis)
+        return "%s %s %s %s" % (self.nota, self.materia, self.admis, self.data_notarii)

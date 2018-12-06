@@ -74,6 +74,10 @@ def adaugare_note(request):
 def vizualizare_situatie_scolara(request):
     current_student = Student.objects.get(pk = request.user.student.id)
     situatie_scolara = current_student.situatie_scolara
+    print(situatie_scolara)
     return render(request, 'vizualizare_situatie_scolara.html',{
-    'situatie_scolara' : situatie_scolara
+    'nota' : [situatie_scolara.nota],
+    'materia' : [situatie_scolara.materia],
+    'admis' : [situatie_scolara.admis],
+    'data_notarii' : [situatie_scolara.data_notarii],
     })
